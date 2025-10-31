@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>गिल्लू - Hindi/English Voice Assistant</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -14,13 +14,13 @@
 
     body {
       font-family: 'Noto Sans Devanagari', sans-serif;
-      background: #000000;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
       min-height: 100vh;
       padding: 20px;
       overflow-x: hidden;
+      position: relative;
     }
 
     #wallpaper-container {
@@ -30,6 +30,18 @@
       width: 100%;
       height: 100%;
       z-index: -1;
+      background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    }
+
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+      padding: 20px 0;
     }
 
     .container_chat_bot {
@@ -37,73 +49,110 @@
       flex-direction: column;
       max-width: 500px;
       width: 100%;
-      background: rgba(20, 20, 20, 0.9);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(20, 20, 30, 0.85);
+      backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container_chat_bot::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     }
 
     .header {
       text-align: center;
       margin-bottom: 20px;
       color: white;
+      position: relative;
     }
 
     .header h1 {
-     font-size: 24px;
-     margin-bottom: 5px;
-     background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-     -webkit-background-clip: text;
-     background-clip: text;
-     -webkit-text-fill-color: transparent;
-     color: transparent;
-   }
+      font-size: 26px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 50%, #6a11cb 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+    }
 
     .header p {
       font-size: 14px;
-      opacity: 0.7;
+      opacity: 0.8;
+      font-weight: 400;
     }
 
     .chat-history {
-      background: rgba(30, 30, 30, 0.7);
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 15px;
-      max-height: 300px;
+      background: rgba(30, 30, 40, 0.7);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 18px;
+      max-height: 350px;
+      min-height: 150px;
       overflow-y: auto;
       color: white;
       border: 1px solid rgba(255, 255, 255, 0.05);
+      scroll-behavior: smooth;
+    }
+
+    .chat-history::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-history::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .chat-history::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+    }
+
+    .chat-history::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
     .chat-history .message {
-      margin-bottom: 15px;
-      padding: 10px 15px;
-      border-radius: 15px;
-      max-width: 80%;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 85%;
       word-wrap: break-word;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.4s ease;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .chat-history .user-message {
-      background: rgba(37, 117, 252, 0.2);
+      background: linear-gradient(135deg, rgba(37, 117, 252, 0.25), rgba(37, 117, 252, 0.15));
       margin-left: auto;
-      border-bottom-right-radius: 5px;
+      border-bottom-right-radius: 6px;
       border: 1px solid rgba(37, 117, 252, 0.3);
     }
 
     .chat-history .bot-message {
-      background: rgba(106, 17, 203, 0.2);
+      background: linear-gradient(135deg, rgba(106, 17, 203, 0.25), rgba(106, 17, 203, 0.15));
       margin-right: auto;
-      border-bottom-left-radius: 5px;
+      border-bottom-left-radius: 6px;
       border: 1px solid rgba(106, 17, 203, 0.3);
     }
 
     .chat-history .message-time {
       font-size: 10px;
       opacity: 0.6;
-      margin-top: 5px;
+      margin-top: 6px;
       text-align: right;
     }
 
@@ -111,19 +160,18 @@
       position: relative;
       display: flex;
       background: linear-gradient(
-        to bottom right,
-        #2a2a2a,
-        #1a1a1a,
-        #1a1a1a,
-        #1a1a1a,
-        #1a1a1a
+        135deg,
+        rgba(42, 42, 52, 0.9),
+        rgba(26, 26, 36, 0.9)
       );
-      border-radius: 16px;
-      padding: 1.5px;
+      border-radius: 18px;
+      padding: 2px;
       overflow: hidden;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
+    /* Shine effect for input container */
     .container-chat-options::after {
       position: absolute;
       content: "";
@@ -142,15 +190,30 @@
       width: 30px;
       height: 30px;
       filter: blur(1px);
+      z-index: 1;
+    }
+
+    .container-chat-options::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      z-index: -1;
+      border-radius: 18px;
     }
 
     .chat {
       display: flex;
       flex-direction: column;
-      background-color: rgba(10, 10, 10, 0.8);
-      border-radius: 15px;
+      background-color: rgba(10, 10, 20, 0.9);
+      border-radius: 16px;
       width: 100%;
       overflow: hidden;
+      position: relative;
+      z-index: 2;
     }
 
     .chat-bot {
@@ -163,19 +226,20 @@
       border-radius: 16px;
       border: none;
       width: 100%;
-      height: 60px;
+      height: 70px;
       color: #ffffff;
-      font-family: sans-serif;
-      font-size: 14px;
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 15px;
       font-weight: 400;
-      padding: 15px;
+      padding: 16px;
       resize: none;
       outline: none;
+      line-height: 1.5;
     }
 
     .chat-bot textarea::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
     }
 
     .chat-bot textarea::-webkit-scrollbar-track {
@@ -184,7 +248,7 @@
 
     .chat-bot textarea::-webkit-scrollbar-thumb {
       background: #444;
-      border-radius: 5px;
+      border-radius: 4px;
     }
 
     .chat-bot textarea::-webkit-scrollbar-thumb:hover {
@@ -205,32 +269,52 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 15px;
+      padding: 12px 16px;
     }
 
     .btn-mic {
       display: flex;
-      padding: 2px;
-      background-image: linear-gradient(to top, #1a1a1a, #333, #1a1a1a);
-      border-radius: 10px;
-      box-shadow: inset 0 6px 2px -4px rgba(255, 255, 255, 0.1);
+      padding: 3px;
+      background: linear-gradient(to top, #1a1a2a, #333344, #1a1a2a);
+      border-radius: 12px;
+      box-shadow: inset 0 6px 2px -4px rgba(255, 255, 255, 0.1),
+                  0 4px 6px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       border: none;
       outline: none;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-mic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-mic:hover::before {
+      opacity: 1;
     }
 
     .btn-mic i {
-      width: 30px;
-      height: 30px;
-      padding: 6px;
+      width: 36px;
+      height: 36px;
+      padding: 8px;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 10px;
       backdrop-filter: blur(3px);
-      color: #666;
+      color: #888;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s ease;
     }
 
     .btn-mic svg {
@@ -239,12 +323,25 @@
 
     .btn-mic:hover svg {
       color: #ffffff;
-      filter: drop-shadow(0 0 5px #ffffff);
+      filter: drop-shadow(0 0 8px #ffffff);
     }
 
     .btn-mic:focus svg {
       color: #ffffff;
-      filter: drop-shadow(0 0 5px #ffffff);
+      filter: drop-shadow(0 0 8px #ffffff);
+    }
+
+    .btn-mic.active {
+      background: linear-gradient(to top, #2575fc, #4b6cb7, #2575fc);
+    }
+
+    .btn-mic.active i {
+      background: rgba(37, 117, 252, 0.4);
+    }
+
+    .btn-mic.active svg {
+      color: #ffffff;
+      filter: drop-shadow(0 0 10px #ffffff);
     }
 
     .btn-mic:active {
@@ -253,27 +350,47 @@
 
     .btn-submit {
       display: flex;
-      padding: 2px;
-      background-image: linear-gradient(to top, #1a1a1a, #333, #1a1a1a);
-      border-radius: 10px;
-      box-shadow: inset 0 6px 2px -4px rgba(255, 255, 255, 0.1);
+      padding: 3px;
+      background: linear-gradient(to top, #1a1a2a, #333344, #1a1a2a);
+      border-radius: 12px;
+      box-shadow: inset 0 6px 2px -4px rgba(255, 255, 255, 0.1),
+                  0 4px 6px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       border: none;
       outline: none;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-submit:hover::before {
+      opacity: 1;
     }
 
     .btn-submit i {
-      width: 30px;
-      height: 30px;
-      padding: 6px;
+      width: 36px;
+      height: 36px;
+      padding: 8px;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 10px;
       backdrop-filter: blur(3px);
-      color: #666;
+      color: #888;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s ease;
     }
 
     .btn-submit svg {
@@ -282,12 +399,12 @@
 
     .btn-submit:hover svg {
       color: #ffffff;
-      filter: drop-shadow(0 0 5px #ffffff);
+      filter: drop-shadow(0 0 8px #ffffff);
     }
 
     .btn-submit:focus svg {
       color: #ffffff;
-      filter: drop-shadow(0 0 5px #ffffff);
+      filter: drop-shadow(0 0 8px #ffffff);
       transform: scale(1.2) rotate(45deg) translateX(-2px) translateY(1px);
     }
 
@@ -299,25 +416,28 @@
       padding: 14px 0;
       display: flex;
       color: #ffffff;
-      font-size: 12px;
-      gap: 8px;
+      font-size: 13px;
+      gap: 10px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .tags span {
-      padding: 6px 12px;
-      background-color: #111;
-      border: 1.5px solid #333;
-      border-radius: 10px;
+      padding: 8px 14px;
+      background-color: rgba(17, 17, 27, 0.8);
+      border: 1.5px solid rgba(51, 51, 68, 0.8);
+      border-radius: 12px;
       cursor: pointer;
       user-select: none;
       transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
 
     .tags span:hover {
-      background-color: #222;
-      border-color: #555;
-      transform: translateY(-2px);
+      background-color: rgba(34, 34, 44, 0.9);
+      border-color: rgba(85, 85, 102, 0.9);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
     .tags span:active {
@@ -331,7 +451,7 @@
       margin-top: 10px;
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
     }
 
     /* Animation for new messages */
@@ -340,15 +460,21 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
     /* Floating Characters Background */
     .floating-char {
       position: absolute;
       font-weight: bold;
       opacity: 0.7;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 10px currentColor;
       user-select: none;
       transition: all 0.5s ease;
       font-family: 'Noto Sans Devanagari', sans-serif;
+      z-index: -1;
     }
 
     /* Language Toggle Styles */
@@ -360,8 +486,8 @@
 
     .toggle-button-cover {
       position: relative;
-      width: 74px;
-      height: 36px;
+      width: 80px;
+      height: 40px;
       box-sizing: border-box;
     }
 
@@ -397,13 +523,9 @@
 
     .button {
       position: relative;
-      width: 74px;
-      height: 36px;
+      width: 80px;
+      height: 40px;
       overflow: hidden;
-    }
-
-    .button.r,
-    .button.r .layer {
       border-radius: 100px;
     }
 
@@ -424,9 +546,10 @@
 
     .layer {
       width: 100%;
-      background-color: #ebf7fc;
+      background-color: rgba(235, 247, 252, 0.2);
       transition: 0.3s ease all;
       z-index: 1;
+      border-radius: 100px;
     }
 
     #button-3 .knobs:before {
@@ -434,17 +557,17 @@
       position: absolute;
       top: 4px;
       left: 4px;
-      width: 20px;
-      height: 10px;
+      width: 32px;
+      height: 32px;
       color: #fff;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: bold;
       text-align: center;
-      line-height: 1;
-      padding: 9px 4px;
-      background: linear-gradient(90deg, #ff6b6b 0%, #ff4757 100%);
+      line-height: 32px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
       border-radius: 50%;
       transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     #button-3 .checkbox:active + .knobs:before {
@@ -458,26 +581,110 @@
 
     #button-3 .checkbox:checked + .knobs:before {
       content: "Eng";
-      left: 42px;
-      background: linear-gradient(90deg, #2575fc 0%, #4b6cb7 100%);
+      left: 44px;
+      background: linear-gradient(135deg, #2575fc 0%, #4b6cb7 100%);
     }
 
     #button-3 .checkbox:checked ~ .layer {
-      background-color: #e3f2fd;
+      background-color: rgba(227, 242, 253, 0.2);
+    }
+
+    /* Status indicators */
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      animation: pulse 2s infinite;
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
     }
 
     /* Responsive design */
     @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+      
+      .main-content {
+        padding: 10px 0;
+      }
+      
       .container_chat_bot {
         max-width: 100%;
+        padding: 18px;
+        border-radius: 18px;
       }
       
       .tags {
         justify-content: center;
+        gap: 8px;
+        padding: 12px 0;
+      }
+      
+      .tags span {
+        padding: 6px 12px;
+        font-size: 12px;
       }
       
       .toggle-button-cover {
         transform: scale(0.9);
+      }
+      
+      .header h1 {
+        font-size: 22px;
+      }
+      
+      .header p {
+        font-size: 13px;
+      }
+      
+      .chat-history {
+        padding: 14px;
+        max-height: 300px;
+      }
+      
+      .chat-history .message {
+        padding: 10px 14px;
+        max-width: 90%;
+      }
+      
+      .footer {
+        font-size: 0.75rem;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .header h1 {
+        font-size: 20px;
+      }
+      
+      .tags span {
+        padding: 5px 10px;
+        font-size: 11px;
+      }
+      
+      .footer {
+        flex-direction: column;
+        gap: 5px;
       }
     }
 
@@ -485,78 +692,279 @@
       opacity: 0.7;
       font-style: italic;
     }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.7);
+      animation: typing 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    @keyframes typing {
+      0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Voice animation */
+    .voice-animation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      height: 20px;
+    }
+
+    .voice-bar {
+      width: 3px;
+      height: 100%;
+      background-color: #2575fc;
+      border-radius: 2px;
+      animation: voicePulse 1.2s infinite ease-in-out;
+    }
+
+    .voice-bar:nth-child(1) { animation-delay: 0s; }
+    .voice-bar:nth-child(2) { animation-delay: 0.1s; }
+    .voice-bar:nth-child(3) { animation-delay: 0.2s; }
+    .voice-bar:nth-child(4) { animation-delay: 0.3s; }
+    .voice-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes voicePulse {
+      0%, 100% { transform: scaleY(0.3); }
+      50% { transform: scaleY(1); }
+    }
+
+    /* Footer Section */
+    .info-footer {
+      background: rgba(15, 15, 25, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 15px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .developer-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .developer-name {
+      font-weight: 600;
+      color: white;
+      font-size: 16px;
+    }
+
+    .developer-title {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .social-link:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .social-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      
+      .social-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .info-footer {
+        padding: 12px 15px;
+      }
+      
+      .developer-name {
+        font-size: 14px;
+      }
+      
+      .developer-title {
+        font-size: 12px;
+      }
+      
+      .social-links {
+        gap: 10px;
+      }
+      
+      .social-link {
+        padding: 6px 10px;
+        font-size: 14px;
+      }
+      
+      .social-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="wallpaper-container"></div>
   
-  <div class="container_chat_bot">
-    <div class="header">
-      <!-- Language Toggle Switch -->
-      <div class="language-toggle-container">
-        <div class="toggle-button-cover">
-          <div id="button-3" class="button r">
-            <input class="checkbox" type="checkbox" id="lang-toggle">
-            <div class="knobs"></div>
-            <div class="layer"></div>
+  <div class="main-content">
+    <div class="container_chat_bot">
+      <div class="header">
+        <!-- Language Toggle Switch -->
+        <div class="language-toggle-container">
+          <div class="toggle-button-cover">
+            <div id="button-3" class="button r">
+              <input class="checkbox" type="checkbox" id="lang-toggle">
+              <div class="knobs"></div>
+              <div class="layer"></div>
+            </div>
+          </div>
+        </div>
+        
+        <h1 id="app-title">🪷 गिल्लू - आपका हिंदी वॉइस असिस्टेंट</h1>
+        <p id="app-subtitle">बोलिए या लिखिए, मैं आपकी सहायता के लिए यहाँ हूँ</p>
+        
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <div class="status-text" id="status-text">ऑनलाइन</div>
+        </div>
+      </div>
+      
+      <div class="chat-history" id="chat-box">
+        <div class="message bot-message">
+          <span id="welcome-message">नमस्ते! मैं गिल्लू हूं, आपका हिंदी सहायक। मैं आपकी क्या सहायता कर सकता हूं?</span>
+          <div class="message-time" id="welcome-time">अभी</div>
+        </div>
+      </div>
+      
+      <div class="container-chat-options">
+        <div class="chat">
+          <div class="chat-bot">
+            <textarea
+              id="user-input"
+              name="user-input"
+              placeholder="बोलिए या लिखिए... ✦˚"
+              rows="1"
+            ></textarea>
+          </div>
+          <div class="options">
+            <button class="btn-mic" id="mic-button" onclick="toggleVoiceRecognition()">
+              <i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3m5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72z"/>
+                </svg>
+              </i>
+            </button>
+            <button class="btn-submit" onclick="sendMessage()">
+              <i>
+                <svg viewBox="0 0 512 512" width="20" height="20">
+                  <path
+                    fill="currentColor"
+                    d="M473 39.05a24 24 0 0 0-25.5-5.46L47.47 185h-.08a24 24 0 0 0 1 45.16l.41.13l137.3 58.63a16 16 0 0 0 15.54-3.59L422 80a7.07 7.07 0 0 1 10 10L226.66 310.26a16 16 0 0 0-3.59 15.54l58.65 137.38c.06.2.12.38.19.57c3.2 9.27 11.3 15.81 21.09 16.25h1a24.63 24.63 0 0 0 23-15.46L478.39 64.62A24 24 0 0 0 473 39.05"
+                  ></path>
+                </svg>
+              </i>
+            </button>
           </div>
         </div>
       </div>
       
-      <h1 id="app-title">🪷 गिल्लू - आपका हिंदी वॉइस असिस्टेंट</h1>
-      <p id="app-subtitle">बोलिए या लिखिए, मैं आपकी सहायता के लिए यहाँ हूँ</p>
-    </div>
-    
-    <div class="chat-history" id="chat-box">
-      <div class="message bot-message">
-        <span id="welcome-message">नमस्ते! मैं गिल्लू हूं, आपका हिंदी सहायक। मैं आपकी क्या सहायता कर सकता हूं?</span>
-        <div class="message-time" id="welcome-time">अभी</div>
+      <div class="tags" id="tags-container">
+        <span>प्रसिद्ध हिंदी लेखकों के नाम बताइए</span>
+        <span>मुझे हिंदी अल्फाबेट के बारे में बताओ</span>
+        <span>आपका क्या नाम है</span>
+        <span>मुझे हिंदी भाषा के बारे में रोचक तथ्य बताइए</span>
       </div>
-    </div>
-    
-    <div class="container-chat-options">
-      <div class="chat">
-        <div class="chat-bot">
-          <textarea
-            id="user-input"
-            name="user-input"
-            placeholder="बोलिए या लिखिए... ✦˚"
-          ></textarea>
-        </div>
-        <div class="options">
-          <button class="btn-mic" onclick="startVoice()">
-            <i>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3m5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72z"/>
-              </svg>
-            </i>
-          </button>
-          <button class="btn-submit" onclick="sendMessage()">
-            <i>
-              <svg viewBox="0 0 512 512" width="20" height="20">
-                <path
-                  fill="currentColor"
-                  d="M473 39.05a24 24 0 0 0-25.5-5.46L47.47 185h-.08a24 24 0 0 0 1 45.16l.41.13l137.3 58.63a16 16 0 0 0 15.54-3.59L422 80a7.07 7.07 0 0 1 10 10L226.66 310.26a16 16 0 0 0-3.59 15.54l58.65 137.38c.06.2.12.38.19.57c3.2 9.27 11.3 15.81 21.09 16.25h1a24.63 24.63 0 0 0 23-15.46L478.39 64.62A24 24 0 0 0 473 39.05"
-                ></path>
-              </svg>
-            </i>
-          </button>
-        </div>
+      
+      <div class="footer">
+        <div>अक्षर: <span id="char-count">50</span></div>
+        <div>गति: <span id="speed-value">1.0</span>x</div>
       </div>
-    </div>
-    
-    <div class="tags" id="tags-container">
-      <span>प्रसिद्ध हिंदी लेखकों के नाम बताइए</span>
-      <span>मुझे हिंदी अल्फाबेट के बारे में बताओ</span>
-      <span>आपका क्या नाम है</span>
-      <span>मुझे हिंदी भाषा के बारे में रोचक तथ्य बताइए</span>
-    </div>
-    
-    <div class="footer">
-      <div>अक्षर: <span id="char-count">50</span></div>
-      <div>गति: <span id="speed-value">1.0</span>x</div>
     </div>
   </div>
+
+  <!-- Footer Section -->
+  <footer class="info-footer">
+    <div class="footer-content">
+      <div class="developer-info">
+        <div class="developer-name">Shaizan Alam</div>
+        <div class="developer-title">Class - 10th D </div>
+      </div>
+      <div class="social-links">
+        
+         <a href="https://kpsraipur.com/" class="social-link">
+          Krishna Public School
+        </a>
+        
+        
+        <a href="https://github.com/shaizanalam" class="social-link">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+     
+        
+       
+      </div>
+    </div>
+  </footer>
 
   <script>
     // Configuration
@@ -587,7 +995,9 @@
         speedText: "गति",
         nowText: "अभी",
         thinking: "सोच रहा हूँ...",
-        error: "क्षमा करें, कुछ त्रुटि हुई। कृपया पुनः प्रयास करें।"
+        error: "क्षमा करें, कुछ त्रुटि हुई। कृपया पुनः प्रयास करें।",
+        online: "ऑनलाइन",
+        listening: "सुन रहा हूँ..."
       },
       en: {
         title: "🪷 Gillu - Your English Voice Assistant",
@@ -606,7 +1016,9 @@
         speedText: "Speed",
         nowText: "Now",
         thinking: "Thinking...",
-        error: "Sorry, something went wrong. Please try again."
+        error: "Sorry, something went wrong. Please try again.",
+        online: "Online",
+        listening: "Listening..."
       }
     };
 
@@ -629,6 +1041,8 @@
 
     let currentLang = 'hi';
     let isProcessing = false;
+    let isListening = false;
+    let recognition = null;
     let chatHistory = {
       'hi': [],
       'en': []
@@ -637,6 +1051,7 @@
     const container = document.getElementById('wallpaper-container');
     let chars = [];
     let speedFactor = 0.35;
+    let animationId = null;
 
     // Color themes that complement the interface
     const colorThemes = [
@@ -651,6 +1066,11 @@
       currentLang = currentLang === 'hi' ? 'en' : 'hi';
       updateInterfaceLanguage();
       updateBackgroundCharacters();
+      
+      // Stop voice recognition if active
+      if (isListening) {
+        stopVoiceRecognition();
+      }
     }
 
     function updateInterfaceLanguage() {
@@ -661,6 +1081,7 @@
       document.getElementById('app-subtitle').textContent = lang.subtitle;
       document.getElementById('user-input').placeholder = lang.placeholder;
       document.getElementById('welcome-message').textContent = lang.welcome;
+      document.getElementById('status-text').textContent = lang.online;
       
       // Update footer
       const footerDivs = document.querySelectorAll('.footer div');
@@ -754,6 +1175,7 @@
         char.x += char.speedX * speedFactor;
         char.y += char.speedY * speedFactor;
         
+        // Boundary check with bounce effect
         if (char.x <= 0 || char.x >= 100) {
           char.speedX *= -1;
           char.x = char.x <= 0 ? 0 : 100;
@@ -767,14 +1189,16 @@
         char.element.style.left = `${char.x}%`;
         char.element.style.top = `${char.y}%`;
         
+        // Add subtle size variation for more dynamic effect
         const sizeVariation = Math.sin(Date.now() * 0.002 + char.x) * 0.2;
         char.element.style.fontSize = `${char.size + sizeVariation}rem`;
         
+        // Add opacity variation
         const opacity = 0.5 + Math.sin(Date.now() * 0.001 + char.y) * 0.3;
         char.element.style.opacity = Math.max(0.3, Math.min(0.9, opacity));
       });
       
-      requestAnimationFrame(updateCharacters);
+      animationId = requestAnimationFrame(updateCharacters);
     }
 
     function updateCharCount() {
@@ -798,15 +1222,24 @@
       // Add user message
       const userMessageDiv = document.createElement('div');
       userMessageDiv.className = 'message user-message';
-      userMessageDiv.innerHTML = `${lang.userPrefix}: ${message}<div class="message-time">${lang.nowText}</div>`;
+      userMessageDiv.innerHTML = `${lang.userPrefix}: ${message}<div class="message-time">${getCurrentTime()}</div>`;
       chatBox.appendChild(userMessageDiv);
       
       input.value = '';
 
-      // Add loading message
+      // Add loading message with typing indicator
       const loadingDiv = document.createElement('div');
       loadingDiv.className = 'message bot-message loading';
-      loadingDiv.innerHTML = `${lang.botPrefix}: ${lang.thinking}<div class="message-time">${lang.nowText}</div>`;
+      loadingDiv.innerHTML = `
+        ${lang.botPrefix}: 
+        <div class="typing-indicator">
+          <span>${lang.thinking}</span>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+        <div class="message-time">${lang.nowText}</div>
+      `;
       chatBox.appendChild(loadingDiv);
       chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -867,7 +1300,7 @@
         // Add assistant response
         const botMessageDiv = document.createElement('div');
         botMessageDiv.className = 'message bot-message';
-        botMessageDiv.innerHTML = `${lang.botPrefix}: ${reply}<div class="message-time">${lang.nowText}</div>`;
+        botMessageDiv.innerHTML = `${lang.botPrefix}: ${reply}<div class="message-time">${getCurrentTime()}</div>`;
         chatBox.appendChild(botMessageDiv);
         
         // Update chat history
@@ -897,12 +1330,17 @@
         // Show error message
         const errorDiv = document.createElement('div');
         errorDiv.className = 'message bot-message';
-        errorDiv.innerHTML = `${lang.botPrefix}: ${lang.error}<div class="message-time">${lang.nowText}</div>`;
+        errorDiv.innerHTML = `${lang.botPrefix}: ${lang.error}<div class="message-time">${getCurrentTime()}</div>`;
         chatBox.appendChild(errorDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
       } finally {
         isProcessing = false;
       }
+    }
+
+    function getCurrentTime() {
+      const now = new Date();
+      return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     }
 
     function speakText(text) {
@@ -911,12 +1349,21 @@
         utterance.lang = currentLang === 'hi' ? 'hi-IN' : 'en-US';
         utterance.rate = 0.9;
         utterance.pitch = 1;
+        utterance.volume = 0.8;
         window.speechSynthesis.speak(utterance);
       }
     }
 
     // Voice input
-    function startVoice() {
+    function toggleVoiceRecognition() {
+      if (isListening) {
+        stopVoiceRecognition();
+      } else {
+        startVoiceRecognition();
+      }
+    }
+
+    function startVoiceRecognition() {
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
         const errorMsg = currentLang === 'hi' ? 
           "आपका ब्राउज़र वॉइस रिकॉग्निशन का समर्थन नहीं करता है。" : 
@@ -925,24 +1372,70 @@
         return;
       }
       
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.lang = currentLang === 'hi' ? 'hi-IN' : 'en-US';
       recognition.interimResults = false;
+      recognition.continuous = false;
       recognition.maxAlternatives = 1;
+      
       recognition.start();
-
+      isListening = true;
+      
+      // Update UI to show listening state
+      const micButton = document.getElementById('mic-button');
+      micButton.classList.add('active');
+      document.getElementById('status-text').textContent = translations[currentLang].listening;
+      
       recognition.onresult = function(event) {
         const text = event.results[0][0].transcript;
         document.getElementById('user-input').value = text;
+        stopVoiceRecognition();
         sendMessage();
       };
 
       recognition.onerror = function(e) {
-        const errorMsg = currentLang === 'hi' ? 
-          "माइक में समस्या आई है: " + e.error : 
-          "Microphone error: " + e.error;
-        console.error(errorMsg);
+        console.error('Speech recognition error:', e.error);
+        stopVoiceRecognition();
+        
+        if (e.error === 'not-allowed') {
+          const errorMsg = currentLang === 'hi' ? 
+            "माइक्रोफ़ोन की अनुमति नहीं है। कृपया ब्राउज़र सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।" : 
+            "Microphone permission denied. Please allow microphone access in your browser settings.";
+          alert(errorMsg);
+        }
       };
+      
+      recognition.onend = function() {
+        if (isListening) {
+          // If recognition ended but we're still in listening mode, restart it
+          setTimeout(() => {
+            if (isListening) {
+              recognition.start();
+            }
+          }, 100);
+        } else {
+          stopVoiceRecognition();
+        }
+      };
+    }
+
+    function stopVoiceRecognition() {
+      if (recognition) {
+        recognition.stop();
+      }
+      isListening = false;
+      
+      // Update UI to show normal state
+      const micButton = document.getElementById('mic-button');
+      micButton.classList.remove('active');
+      document.getElementById('status-text').textContent = translations[currentLang].online;
+    }
+
+    // Auto-resize textarea
+    function autoResizeTextarea() {
+      const textarea = document.getElementById('user-input');
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
     }
 
     // Event listeners
@@ -953,6 +1446,8 @@
       }
     });
 
+    document.getElementById('user-input').addEventListener('input', autoResizeTextarea);
+
     // Toggle switch event listener
     document.getElementById('lang-toggle').addEventListener('change', function() {
       switchLanguage();
@@ -960,7 +1455,7 @@
 
     // Initialize
     createCharacters(50);
-    updateCharacters();
+    updateCharacters(); // Start the animation
     updateInterfaceLanguage();
 
     // Handle window resize
