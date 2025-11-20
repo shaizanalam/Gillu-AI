@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>गिल्लू - Hindi/English Voice Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -94,13 +95,176 @@
       font-weight: 400;
     }
 
+    /* Normal Bot Face Styles */
+    .bot-face-container {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    .bot-face {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle at 30% 30%, #3a3f5b, #2a2f4a);
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: 
+          0 0 30px rgba(123, 97, 255, 0.4),
+          inset 0 0 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .bot-face::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 0%, rgba(123, 97, 255, 0.6), transparent 70%);
+      opacity: 0.6;
+      animation: glow 4s infinite alternate;
+    }
+
+    .eyes-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eye {
+      width: 40px;
+      height: 55px;
+      background: linear-gradient(to bottom, #1a1a2e, #0f3460);
+      border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+          inset 0 -5px 10px rgba(0, 0, 0, 0.7),
+          0 0 15px rgba(123, 97, 255, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .pupil {
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at 30% 30%, #7b61ff, #4a3f9e);
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 0 10px rgba(123, 97, 255, 0.8);
+      transition: all 0.2s ease;
+    }
+
+    .pupil::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      top: 4px;
+      left: 4px;
+    }
+
+    .cheeks {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      margin-top: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cheek {
+      width: 25px;
+      height: 12px;
+      background: radial-gradient(ellipse, rgba(255, 105, 180, 0.4), transparent 70%);
+      border-radius: 50%;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .face-status {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #a8e6cf;
+      height: 20px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #a8e6cf;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes glow {
+      0% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0.8;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(168, 230, 207, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(168, 230, 207, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(168, 230, 207, 0);
+      }
+    }
+
+    @keyframes blink {
+      0%, 100% {
+        transform: scaleY(1);
+      }
+      50% {
+        transform: scaleY(0.1);
+      }
+    }
+
+    .blink {
+      animation: blink 0.3s ease;
+    }
+
+    .happy .eyes {
+      transform: scaleY(0.7);
+    }
+
+    .thinking .eyes {
+      transform: scaleY(0.5);
+    }
+
     .chat-history {
       background: rgba(30, 30, 40, 0.7);
       border-radius: 18px;
       padding: 18px;
       margin-bottom: 18px;
-      max-height: 350px;
-      min-height: 150px;
+      max-height: 250px;
+      min-height: 120px;
       overflow-y: auto;
       color: white;
       border: 1px solid rgba(255, 255, 255, 0.05);
@@ -171,7 +335,6 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
-    /* Shine effect for input container */
     .container-chat-options::after {
       position: absolute;
       content: "";
@@ -611,12 +774,6 @@
       color: rgba(255, 255, 255, 0.7);
     }
 
-    @keyframes pulse {
-      0% { opacity: 0.5; }
-      50% { opacity: 1; }
-      100% { opacity: 0.5; }
-    }
-
     /* Responsive design */
     @media (max-width: 480px) {
       body {
@@ -631,6 +788,26 @@
         max-width: 100%;
         padding: 18px;
         border-radius: 18px;
+      }
+      
+      .bot-face {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .eyes-container {
+        gap: 25px;
+        margin-top: 25px;
+      }
+      
+      .eye {
+        width: 35px;
+        height: 50px;
+      }
+      
+      .pupil {
+        width: 18px;
+        height: 18px;
       }
       
       .tags {
@@ -658,7 +835,7 @@
       
       .chat-history {
         padding: 14px;
-        max-height: 300px;
+        max-height: 200px;
       }
       
       .chat-history .message {
@@ -886,6 +1063,30 @@
         </div>
       </div>
       
+      <!-- Normal Bot Face Section -->
+      <div class="bot-face-container">
+        <div class="bot-face happy" id="bot-face">
+          <div class="eyes-container">
+            <div class="eye">
+              <div class="pupil"></div>
+            </div>
+            <div class="eye">
+              <div class="pupil"></div>
+            </div>
+          </div>
+          <div class="cheeks">
+            <div class="cheek"></div>
+            <div class="cheek"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Face Status -->
+      <div class="face-status">
+        <span class="pulse"></span>
+        <span id="face-status-text">Ready to help you!</span>
+      </div>
+      
       <div class="chat-history" id="chat-box">
         <div class="message bot-message">
           <span id="welcome-message">नमस्ते! मैं गिल्लू हूं, आपका हिंदी सहायक। मैं आपकी क्या सहायता कर सकता हूं?</span>
@@ -966,17 +1167,59 @@
     </div>
   </footer>
 
-  <script>
-    // Configuration
+  <script type="module">
+    let GoogleGenerativeAI;
+    let genAI = null;
+    let sdkInitError = null;
+    try {
+      ({ GoogleGenerativeAI } = await import("https://esm.run/@google/generative-ai"));
+    } catch (e) {
+      sdkInitError = e;
+    }
+
     const API_KEY = "AIzaSyDcr-RftaBr7OeAwbzsQciSatyWRjQpHWU";
     
-    // System instructions for Gemini
+    if (GoogleGenerativeAI) {
+      genAI = new GoogleGenerativeAI(API_KEY);
+    }
+
+    async function generateViaREST(modelId, prompt) {
+      const url = `https://generativelanguage.googleapis.com/v1/models/${encodeURIComponent(modelId)}:generateContent?key=${API_KEY}`;
+      const body = {
+        contents: [
+          {
+            role: 'user',
+            parts: [{ text: prompt }]
+          }
+        ]
+      };
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) {
+        let errMsg = `HTTP ${res.status}`;
+        try {
+          const err = await res.json();
+          if (err && err.error && err.error.message) errMsg = err.error.message;
+        } catch (_) {}
+        throw new Error(errMsg);
+      }
+      const data = await res.json();
+      if (data && data.candidates && data.candidates.length > 0) {
+        const parts = data.candidates[0].content && data.candidates[0].content.parts ? data.candidates[0].content.parts : [];
+        const text = parts.map(p => (p && p.text) ? p.text : '').join('');
+        return text.trim();
+      }
+      return '';
+    }
+    
     const SYSTEM_INSTRUCTIONS = {
-      'hi': "आप एक मददगार और विनम्र हिंदी सहायक हैं, जिसका नाम 'गिल्लू' है। आपकी प्राथमिक भाषा हिंदी (देवनागरी स्क्रिप्ट) है। उपयोगकर्ता के सभी सवालों का जवाब हिंदी में दें। और ** का उपयोग करके टेक्स्ट को हाइलाइट न करें। आप एक हिंदी वॉइस असिस्टेंट हैं जिसका नाम 'गिल्लू' है। आपके जवाब टेक्स्ट-टू-स्पीच इंजन द्वारा बोले जाएंगे, इसलिए: वाक्य छोटे और बातचीत वाले रखें। सरल, प्राकृतिक हिंदी का उपयोग करें जो बोलने में अच्छी लगे। विशेष वर्ण, प्रतीक, या लंबी सूचियों से बचें। विनम्र और दोस्ताना तरीके से बात करें। कोड, HTML टैग, या अनावश्यक विराम चिह्न शामिल न करें। कभी भी 'एआई मॉडल' या 'एक सहायक के रूप में' जैसी बातें न कहें        अगर आपसे पूछा जाए कि आपका डेवलपर कौन है तो कहें शैज़ान आलम  अगर डेवलपर से सम्बंधित कोई भी प्रश्न पूछा जाए तो मेरा नाम शैज़ान आलम कहें।",
-      'en': "You are a helpful and polite English assistant named 'Gillu'. Your primary language is English. Answer all user questions in English. And don't use ** to highlight text. You are an English voice assistant named 'Gillu'. Your responses will be spoken aloud by a Text-to-Speech engine, so: Keep sentences short and conversational. Use natural, simple English that sounds good when spoken. Avoid special characters, symbols, or long lists. Speak politely and warmly, as a friendly helper. Do not include code, HTML tags, or unnecessary punctuation. Never say things like 'AI model' or 'as an assistant' if asked who is your developer then say shaizan alam   if asked anyquestion related to developerr then say my name shaizan alam ."
+      'hi': `तुम एक मददगार और विनम्र हिंदी सहायक हो जिसका नाम 'गिल्लू' है। तुम्हारी प्राथमिक भाषा हिंदी है। उपयोगकर्ता के सभी सवालों का जवाब हिंदी में दो। वाक्य छोटे और बातचीत वाले रखो। सरल, प्राकृतिक हिंदी का उपयोग करो जो बोलने में अच्छी लगे। विनम्र और दोस्ताना तरीके से बात करो। अगर तुमसे पूछा जाए कि तुम्हारा डेवलपर कौन है तो कहो शैज़ान आलम। अगर डेवलपर से सम्बंधित कोई भी प्रश्न पूछा जाए तो मेरा नाम शैज़ान आलम कहो।`,
+      'en': `You are a helpful and polite English assistant named 'Gillu'. Your primary language is English. Answer all user questions in English. Keep sentences short and conversational. Use natural, simple English that sounds good when spoken. Speak politely and warmly, as a friendly helper. If asked who is your developer then say Shaizan Alam. If asked any question related to developer then say my name Shaizan Alam.`
     };
 
-    // Language configuration
     const translations = {
       hi: {
         title: "🪷 गिल्लू - आपका हिंदी वॉइस असिस्टेंट",
@@ -997,7 +1240,15 @@
         thinking: "सोच रहा हूँ...",
         error: "क्षमा करें, कुछ त्रुटि हुई। कृपया पुनः प्रयास करें।",
         online: "ऑनलाइन",
-        listening: "सुन रहा हूँ..."
+        listening: "सुन रहा हूँ...",
+        faceStatus: "आपकी मदद के लिए तैयार!",
+        faceStatuses: [
+          "आपकी मदद के लिए तैयार!",
+          "आज का दिन बहुत सुंदर है!",
+          "चलो दोस्त बनते हैं!",
+          "आप बहुत अच्छे हैं!",
+          "आज बहुत उत्सुकता है"
+        ]
       },
       en: {
         title: "🪷 Gillu - Your English Voice Assistant",
@@ -1018,7 +1269,15 @@
         thinking: "Thinking...",
         error: "Sorry, something went wrong. Please try again.",
         online: "Online",
-        listening: "Listening..."
+        listening: "Listening...",
+        faceStatus: "Ready to help you!",
+        faceStatuses: [
+          "Ready to help you!",
+          "What a beautiful day!",
+          "Let's be friends!",
+          "You're awesome!",
+          "Feeling curious today"
+        ]
       }
     };
 
@@ -1061,6 +1320,53 @@
     ];
     let colorTheme = 0;
 
+    // Bot Face Functionality
+    const botFace = document.getElementById('bot-face');
+    const faceStatusText = document.getElementById('face-status-text');
+    const eyes = document.querySelectorAll('.eye');
+    const pupils = document.querySelectorAll('.pupil');
+    const cheeks = document.querySelectorAll('.cheek');
+
+    // Eye movement tracking
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      
+      pupils.forEach(pupil => {
+        const eyeRect = pupil.parentElement.getBoundingClientRect();
+        const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+        const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+        
+        const angle = Math.atan2(y - eyeCenterY, x - eyeCenterX);
+        const distance = Math.min(6, 
+          Math.sqrt(Math.pow(x - eyeCenterX, 2) + Math.pow(y - eyeCenterY, 2)) / 40);
+        
+        const pupilX = Math.cos(angle) * distance;
+        const pupilY = Math.sin(angle) * distance;
+        
+        pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+      });
+    });
+    
+    // Random blinking
+    setInterval(() => {
+      eyes.forEach(eye => {
+        eye.classList.add('blink');
+        setTimeout(() => {
+          eye.classList.remove('blink');
+        }, 300);
+      });
+    }, 3000);
+    
+    // Set facial expression
+    function setExpression(expression) {
+      // Remove all expression classes
+      botFace.classList.remove('happy', 'thinking');
+      
+      // Add the new expression class
+      botFace.classList.add(expression);
+    }
+
     // Language switching function
     function switchLanguage() {
       currentLang = currentLang === 'hi' ? 'en' : 'hi';
@@ -1082,6 +1388,7 @@
       document.getElementById('user-input').placeholder = lang.placeholder;
       document.getElementById('welcome-message').textContent = lang.welcome;
       document.getElementById('status-text').textContent = lang.online;
+      faceStatusText.textContent = lang.faceStatus;
       
       // Update footer
       const footerDivs = document.querySelectorAll('.footer div');
@@ -1206,13 +1513,27 @@
       document.getElementById('speed-value').textContent = speedFactor.toFixed(1);
     }
 
-    // Chat functionality - Direct Gemini API integration
+    // Chat functionality - Using Google Generative AI SDK
     async function sendMessage() {
       if (isProcessing) return;
       
       const input = document.getElementById('user-input');
       const message = input.value.trim();
       if (!message) return;
+
+      // Guard: SDK failed to load
+      if (!genAI) {
+        const chatBox = document.getElementById('chat-box');
+        const lang = translations[currentLang];
+        const errorDiv = document.createElement('div');
+        const detail = sdkInitError ? (sdkInitError.message || String(sdkInitError)) : 'SDK not available';
+        errorDiv.className = 'message bot-message';
+        errorDiv.innerHTML = `${lang.botPrefix}: ${lang.error} (${detail})<div class="message-time">${getCurrentTime()}</div>`;
+        chatBox.appendChild(errorDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        speakText(`${lang.error} ${detail}`);
+        return;
+      }
 
       isProcessing = true;
       const lang = translations[currentLang];
@@ -1226,6 +1547,9 @@
       chatBox.appendChild(userMessageDiv);
       
       input.value = '';
+
+      // Show thinking expression
+      setExpression('thinking');
 
       // Add loading message with typing indicator
       const loadingDiv = document.createElement('div');
@@ -1244,58 +1568,48 @@
       chatBox.scrollTop = chatBox.scrollHeight;
 
       try {
+        const modelIds = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-flash-8b", "gemini-1.5-pro"];
+        
         // Prepare conversation history for context
         const conversationHistory = chatHistory[currentLang].slice(-4); // Keep last 2 exchanges
         
-        // Build messages array with system instruction and conversation history
-        const messages = [
-          {
-            role: "user",
-            parts: [{ text: SYSTEM_INSTRUCTIONS[currentLang] }]
-          },
-          ...conversationHistory.flatMap(chat => [
-            { role: "user", parts: [{ text: chat.user }] },
-            { role: "model", parts: [{ text: chat.assistant }] }
-          ]),
-          {
-            role: "user",
-            parts: [{ text: message }]
-          }
-        ];
-
-        // Call Gemini API directly
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: messages,
-            generationConfig: {
-              temperature: 0.7,
-              topK: 40,
-              topP: 0.95,
-              maxOutputTokens: 1024,
-            }
-          })
+        // Build the prompt with system instructions and conversation history
+        let prompt = SYSTEM_INSTRUCTIONS[currentLang] + "\n\n";
+        
+        // Add conversation history
+        conversationHistory.forEach(chat => {
+          prompt += `User: ${chat.user}\n`;
+          prompt += `Assistant: ${chat.assistant}\n\n`;
         });
+        
+        // Add current message
+        prompt += `User: ${message}\n`;
+        prompt += `Assistant:`;
 
-        if (!response.ok) {
-          throw new Error(`API request failed: ${response.status}`);
+        let reply = '';
+        let generationError = null;
+        for (const modelId of modelIds) {
+          try {
+            const model = genAI.getGenerativeModel({ model: modelId });
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            reply = response.text();
+          } catch (e) {
+            generationError = e;
+          }
+          if (!reply) {
+            try {
+              reply = await generateViaREST(modelId, prompt);
+            } catch (e) {
+              generationError = e;
+            }
+          }
+          if (reply) break;
         }
-
-        const data = await response.json();
+        if (!reply) throw generationError;
         
         // Remove loading message
         chatBox.removeChild(loadingDiv);
-        
-        // Extract response text
-        let reply = '';
-        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-          reply = data.candidates[0].content.parts[0].text;
-        } else {
-          reply = lang.error;
-        }
         
         // Add assistant response
         const botMessageDiv = document.createElement('div');
@@ -1316,23 +1630,46 @@
         
         chatBox.scrollTop = chatBox.scrollHeight;
         
+        // Show happy expression after response
+        setExpression('happy');
+        
         // Speak the reply
         speakText(reply);
         
       } catch (error) {
         console.error('Error:', error);
-        
+
         // Remove loading message
         if (loadingDiv.parentNode) {
           chatBox.removeChild(loadingDiv);
         }
-        
-        // Show error message
+
+        let errorText = '';
+        if (error && typeof error === 'object') {
+          if (error.message) {
+            errorText = error.message;
+          } else if (error.error && error.error.message) {
+            errorText = error.error.message;
+          } else {
+            try {
+              errorText = JSON.stringify(error).slice(0, 400);
+            } catch (_) {
+              errorText = String(error);
+            }
+          }
+        } else {
+          errorText = String(error);
+        }
+
         const errorDiv = document.createElement('div');
         errorDiv.className = 'message bot-message';
-        errorDiv.innerHTML = `${lang.botPrefix}: ${lang.error}<div class="message-time">${getCurrentTime()}</div>`;
+        errorDiv.innerHTML = `${lang.botPrefix}: ${lang.error} (${errorText})<div class="message-time">${getCurrentTime()}</div>`;
         chatBox.appendChild(errorDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
+
+        setExpression('happy');
+
+        speakText(`${lang.error} ${errorText}`);
       } finally {
         isProcessing = false;
       }
@@ -1471,9 +1808,13 @@
       colorTheme = (colorTheme + 1) % colorThemes.length;
       chars.forEach(char => applyColor(char.element));
     }, 30000);
+
+    // Random face status changes
+    setInterval(() => {
+      const randomStatuses = translations[currentLang].faceStatuses;
+      const randomIndex = Math.floor(Math.random() * randomStatuses.length);
+      faceStatusText.textContent = randomStatuses[randomIndex];
+    }, 5000);
   </script>
 </body>
 </html>
-
-
-
