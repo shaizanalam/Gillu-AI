@@ -1815,6 +1815,11 @@
       const randomIndex = Math.floor(Math.random() * randomStatuses.length);
       faceStatusText.textContent = randomStatuses[randomIndex];
     }, 5000);
+
+    // Expose functions used by inline handlers so they are available on window
+    // (module scope does not create globals for inline `onclick` attributes)
+    window.sendMessage = sendMessage;
+    window.toggleVoiceRecognition = toggleVoiceRecognition;
   </script>
 </body>
 </html>
