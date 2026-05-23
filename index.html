@@ -1145,7 +1145,7 @@
     <div class="footer-content">
       <div class="developer-info">
         <div class="developer-name">Shaizan Alam</div>
-        <div class="developer-title">Class - 10th D </div>
+        <div class="developer-title">Class - 11th </div>
       </div>
       <div class="social-links">
         
@@ -1177,7 +1177,7 @@
       sdkInitError = e;
     }
 
-    const API_KEY = "AIzaSyBXv3SWEzUCe7XGKLVUyusRMWHH3-FUBbk";
+    const API_KEY = "AIzaSyBXjxGigddnsZk95J9uJJcVeVTjDBQQM1I";
     
     if (GoogleGenerativeAI) {
       genAI = new GoogleGenerativeAI(API_KEY);
@@ -1568,7 +1568,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
 
       try {
-        const modelIds = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-flash-8b", "gemini-1.5-pro"];
+        const modelIds = ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-pro"];
         
         // Prepare conversation history for context
         const conversationHistory = chatHistory[currentLang].slice(-4); // Keep last 2 exchanges

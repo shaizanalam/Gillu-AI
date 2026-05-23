@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="hi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gillu Assistant | Under Construction</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#e4e1ef",
+                    "surface-tint": "#d7baff",
+                    "on-error-container": "#ffdad6",
+                    "surface-bright": "#393843",
+                    "on-primary": "#430088",
+                    "surface-container-low": "#1b1b25",
+                    "glass-stroke": "rgba(255, 255, 255, 0.08)",
+                    "on-background": "#e4e1ef",
+                    "surface": "#12121c",
+                    "inverse-surface": "#e4e1ef",
+                    "on-surface-variant": "#cdc2d7",
+                    "on-secondary-fixed-variant": "#00419c",
+                    "primary-fixed": "#eddcff",
+                    "tertiary": "#ffb3b0",
+                    "surface-container-lowest": "#0d0d17",
+                    "mint-status": "#a8e6cf",
+                    "tertiary-container": "#981f27",
+                    "on-tertiary": "#68000f",
+                    "surface-dim": "#12121c",
+                    "outline-variant": "#4b4454",
+                    "outline": "#978da0",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "inverse-on-surface": "#302f3a",
+                    "on-tertiary-container": "#ffaba8",
+                    "on-primary-container": "#d2b3ff",
+                    "error-container": "#93000a",
+                    "shimmer-gradient": "linear-gradient(90deg, #6a11cb, #2575fc, #6a11cb)",
+                    "on-tertiary-fixed-variant": "#8c1520",
+                    "on-secondary-container": "#f3f3ff",
+                    "secondary-fixed-dim": "#b0c6ff",
+                    "primary-fixed-dim": "#d7baff",
+                    "surface-container-high": "#292934",
+                    "on-primary-fixed-variant": "#6100be",
+                    "surface-variant": "#34343f",
+                    "secondary-fixed": "#d9e2ff",
+                    "on-secondary-fixed": "#001945",
+                    "deep-space": "#0f0c29",
+                    "secondary": "#b0c6ff",
+                    "on-tertiary-fixed": "#410006",
+                    "on-primary-fixed": "#280056",
+                    "on-secondary": "#002c6f",
+                    "inverse-primary": "#7a2edb",
+                    "on-error": "#690005",
+                    "background": "#12121c",
+                    "surface-container": "#1f1f29",
+                    "surface-container-highest": "#34343f",
+                    "void-base": "#24243e",
+                    "tertiary-fixed": "#ffdad8",
+                    "primary-container": "#6a11cb",
+                    "error": "#ffb4ab",
+                    "primary": "#d7baff",
+                    "secondary-container": "#0068ef"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "20px",
+                    "unit": "4px",
+                    "stack-md": "18px",
+                    "stack-sm": "10px",
+                    "container-max": "500px",
+                    "stack-lg": "30px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Noto Sans Devanagari"],
+                    "label-caps": ["Noto Sans Devanagari"],
+                    "headline-md": ["Noto Sans Devanagari"],
+                    "display-lg-mobile": ["Noto Sans Devanagari"],
+                    "body-sm": ["Noto Sans Devanagari"],
+                    "body-lg": ["Noto Sans Devanagari"]
+            },
+            "fontSize": {
+                    "display-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["10px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-md": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "display-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "body-sm": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["15px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #12121c 100%);
+        overflow-x: hidden;
+      }
+
+      .glass-card {
+        background: rgba(20, 20, 30, 0.85);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+      }
+
+      .bot-glow {
+        filter: drop-shadow(0 0 25px rgba(215, 186, 255, 0.4));
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+      }
+
+      @keyframes pulse-ring {
+        0% { transform: scale(0.8); opacity: 0.5; }
+        100% { transform: scale(1.2); opacity: 0; }
+      }
+
+      @keyframes blink {
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.1); }
+      }
+
+      @keyframes gear-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .animate-float { animation: float 6s ease-in-out infinite; }
+      .animate-blink { animation: blink 4s infinite; }
+      .animate-gear { animation: gear-spin 8s linear infinite; }
+      .animate-gear-rev { animation: gear-spin 6s linear infinite reverse; }
+
+      .shimmer-btn {
+        background: linear-gradient(90deg, #6a11cb, #2575fc, #6a11cb);
+        background-size: 200% auto;
+        transition: 0.5s;
+        box-shadow: 0 10px 20px -10px rgba(106, 17, 203, 0.5);
+      }
+      .shimmer-btn:hover {
+        background-position: right center;
+        transform: translateY(-2px);
+      }
+
+      .voice-bar {
+        width: 4px;
+        background: #d7baff;
+        border-radius: 2px;
+        animation: voicePulse 1.2s ease-in-out infinite;
+      }
+      @keyframes voicePulse {
+        0%, 100% { height: 8px; }
+        50% { height: 24px; }
+      }
+    </style>
+</head>
+<body class="text-on-surface font-body-lg min-h-screen flex flex-col items-center justify-center p-gutter relative overflow-hidden">
+<!-- Deep Space Background Elements -->
+<div class="absolute inset-0 pointer-events-none z-0">
+<div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-container/10 rounded-full blur-[150px]"></div>
+<!-- Floating Glyphs -->
+<span class="material-symbols-outlined absolute text-surface-variant/30 text-4xl top-[10%] left-[15%] animate-float" style="animation-delay: 0s">mic</span>
+<span class="material-symbols-outlined absolute text-surface-variant/30 text-5xl bottom-[20%] right-[10%] animate-float" style="animation-delay: 1s">auto_awesome</span>
+<span class="material-symbols-outlined absolute text-surface-variant/20 text-3xl top-[40%] right-[20%] animate-float" style="animation-delay: 2s">psychology</span>
+</div>
+<!-- Top App Bar (Gillu Branding) -->
+<header class="w-full top-0 sticky backdrop-blur-md bg-surface/30 z-50">
+<div class="flex justify-between items-center px-gutter py-stack-sm w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">rocket_launch</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary tracking-tighter">Gillu</span>
+</div>
+<button class="text-on-surface-variant hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center w-full max-w-container-max relative z-10 py-stack-lg">
+<!-- Bot Face Central Visual -->
+<div class="relative mb-stack-lg group">
+<!-- Pulsing Aura -->
+<div class="absolute inset-0 rounded-full bg-primary/20 scale-125 blur-3xl opacity-50 group-hover:opacity-80 transition-opacity duration-500"></div>
+<!-- Construction Props -->
+<div class="absolute -top-6 -right-6 animate-gear z-20">
+<span class="material-symbols-outlined text-primary/80 text-4xl">settings</span>
+</div>
+<div class="absolute -bottom-4 -left-8 animate-gear-rev z-20">
+<span class="material-symbols-outlined text-secondary/60 text-5xl">build</span>
+</div>
+<!-- The Bot Container -->
+<div class="w-48 h-48 rounded-full glass-card flex flex-col items-center justify-center relative bot-glow border-2 border-primary/20">
+<!-- Eyes Row -->
+<div class="flex gap-10">
+<div class="w-6 h-6 bg-primary rounded-full animate-blink relative">
+<div class="absolute inset-0 bg-primary blur-sm"></div>
+</div>
+<!-- Puzzled Look: Right Eye slightly lower or tilted -->
+<div class="w-6 h-6 bg-primary rounded-full animate-blink relative translate-y-2">
+<div class="absolute inset-0 bg-primary blur-sm"></div>
+</div>
+</div>
+<!-- Mouth/Voice Activity Simulation -->
+<div class="mt-8 flex items-end gap-1 h-6">
+<div class="voice-bar" style="animation-delay: 0.1s"></div>
+<div class="voice-bar" style="animation-delay: 0.3s"></div>
+<div class="voice-bar" style="animation-delay: 0.2s"></div>
+<div class="voice-bar" style="animation-delay: 0.4s"></div>
+</div>
+<!-- Puzzled Icon Overlay -->
+<div class="absolute top-2 right-6">
+<span class="material-symbols-outlined text-primary text-xl font-bold">question_mark</span>
+</div>
+</div>
+</div>
+<!-- Typography & Message -->
+<div class="text-center px-4">
+<h1 class="font-headline-md text-headline-md text-primary mb-2">
+                🚧 निर्माण जारी है / Under Construction
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[400px] mx-auto opacity-90 leading-relaxed">
+                गिल्लू अभी कुछ नया सीख रहा है। जल्दी ही मिलते हैं!<br/>
+<span class="text-sm opacity-70">Gillu is learning something new. See you soon!</span>
+</p>
+<p class="mt-4 text-sm text-on-surface-variant opacity-80 max-w-[400px] mx-auto leading-relaxed">
+                नोट: इस पेज में अभी कुछ भी सक्रिय रूप से उपयोग नहीं हो रहा है। यह सिर्फ़ विकास स्थिति को दर्शाने के लिए है।
+            </p>
+</div>
+<!-- Bento Suggestion Grid (Simplified for Status Page) -->
+<div class="grid grid-cols-2 gap-stack-sm w-full mt-stack-lg px-gutter">
+<div class="glass-card rounded-xl p-4 flex flex-col items-start gap-2 group hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-primary text-xl">history_edu</span>
+<span class="text-xs font-label-caps text-on-surface-variant">Update Status</span>
+<span class="text-sm font-semibold">Brain Upgrade 4.0</span>
+</div>
+<div class="glass-card rounded-xl p-4 flex flex-col items-start gap-2 group hover:border-primary/40 transition-colors">
+<span class="material-symbols-outlined text-secondary text-xl">electric_bolt</span>
+<span class="text-xs font-label-caps text-on-surface-variant">ETA</span>
+<span class="text-sm font-semibold">Very Soon!</span>
+</div>
+</div>
+<!-- Action CTA -->
+<div class="mt-stack-lg w-full px-gutter">
+<button class="shimmer-btn w-full py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span>Go Back to Chat / वापस चैट पर जाएं</span>
+</button>
+</div>
+</main>
+<!-- Footer Identity -->
+<footer class="w-full py-stack-md flex flex-col items-center gap-2 z-10">
+<div class="flex items-center gap-3">
+<div class="h-[1px] w-8 bg-glass-stroke"></div>
+<span class="text-[10px] font-label-caps text-on-surface-variant opacity-50 tracking-widest uppercase">Developer Info</span>
+<div class="h-[1px] w-8 bg-glass-stroke"></div>
+</div>
+<p class="font-body-sm text-body-sm text-surface-tint font-semibold">
+            Shaizan Alam
+        </p>
+</footer>
+<!-- Bottom Nav Bar (Suppressed for focused 'Under Development' page as per mandate, but included for structure if needed later) -->
+<!-- Suppressed: "hide the shell to prioritize the Canvas" -->
+<script>
+        // Micro-interactions for floating tools
+        document.addEventListener('mousemove', (e) => {
+            const bot = document.querySelector('.bot-glow');
+            if (bot) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+                bot.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            }
+        });
+
+        // Add random pulse to voice bars
+        const bars = document.querySelectorAll('.voice-bar');
+        bars.forEach(bar => {
+            setInterval(() => {
+                const height = Math.floor(Math.random() * 20) + 10;
+                bar.style.height = `${height}px`;
+            }, 150);
+        });
+    </script>
+</body></html>
