@@ -6,6 +6,7 @@
   <title>गिल्लू - Hindi/English Voice Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -311,6 +312,31 @@
       margin-right: auto;
       border-bottom-left-radius: 6px;
       border: 1px solid rgba(106, 17, 203, 0.3);
+    }
+
+    .markdown-content p {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .markdown-content p:last-child {
+      margin-bottom: 0;
+    }
+    .markdown-content ul, .markdown-content ol {
+      margin-left: 20px;
+      margin-bottom: 8px;
+    }
+    .markdown-content code {
+      background: rgba(0,0,0,0.2);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .markdown-content pre {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 8px;
     }
 
     .chat-history .message-time {
@@ -635,7 +661,7 @@
       opacity: 0.7;
       text-shadow: 0 0 10px currentColor;
       user-select: none;
-      transition: all 0.5s ease;
+      transition: color 0.5s ease, text-shadow 0.5s ease;
       font-family: 'Noto Sans Devanagari', sans-serif;
       z-index: -1;
     }
@@ -1177,7 +1203,7 @@
       sdkInitError = e;
     }
 
-    const API_KEY = "AIzaSyBXv3SWEzUCe7XGKLVUyusRMWHH3-FUBbk";
+    const API_KEY = "AIzaSyBX3OtwZX69DDOkLEQeZBTHqkeMLaMj0rQ";
     
     if (GoogleGenerativeAI) {
       genAI = new GoogleGenerativeAI(API_KEY);
@@ -1614,7 +1640,15 @@
         // Add assistant response
         const botMessageDiv = document.createElement('div');
         botMessageDiv.className = 'message bot-message';
-        botMessageDiv.innerHTML = `${lang.botPrefix}: ${reply}<div class="message-time">${getCurrentTime()}</div>`;
+        
+        let formattedReply = reply;
+        if (typeof marked !== 'undefined') {
+          formattedReply = marked.parse(reply);
+        } else {
+          formattedReply = reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>').replace(/\n/g, '<br>');
+        }
+        
+        botMessageDiv.innerHTML = `<strong>${lang.botPrefix}:</strong><div class="markdown-content" style="margin-top: 5px;">${formattedReply}</div><div class="message-time">${getCurrentTime()}</div>`;
         chatBox.appendChild(botMessageDiv);
         
         // Update chat history
